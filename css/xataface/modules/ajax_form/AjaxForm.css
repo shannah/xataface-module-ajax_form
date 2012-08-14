@@ -1,0 +1,26 @@
+
+.xf-field-validation-error {
+	border: 1px dotted #ff9966;
+}
+
+.xf-error-message {
+
+	color: red;
+}
+
+.xf-ajax-form-progress-pane {
+	background-color: #eaeaea;
+	position: absolute;
+	
+	
+}
+.xf-ajax-form-progress-pane .xf-progress-please-wait {
+	display: block;
+	margin: auto auto;
+	height: 20px;
+	width: 100px;
+	color: #333;
+	background-image: url(images/progress.gif);
+	background-repeat: no-repeat;
+	padding-left: 20px;
+}
