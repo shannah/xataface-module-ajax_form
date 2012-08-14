@@ -1,5 +1,7 @@
 //require <jquery.packed.js>
 //require <xatajax.core.js>
+//require-css <xataface/modules/ajax_form/AjaxList.css>
+
 /**
  
  
@@ -16,7 +18,13 @@
 	var ajax_form = XataJax.load('xataface.modules.ajax_form');
 	ajax_form.AjaxList = AjaxList;
 	
-	
+	/**
+	 * @type class
+	 * @memberOf xataface.modules.ajax_form
+	 * @description Creates an Ajax List
+	 * @param {Object} o The initializations parameters.
+	 * @param {HTMLElement} o.el The table tag that is being used for the list.
+	 */
 	function AjaxList(o){
 		var self = this;
 		this.el = o.el;
@@ -165,6 +173,12 @@
 		function isRowSelected(tr){}
 		function getSelectedRows(){}
 		
+		/**
+		 * @type function 
+		 * @memberOf xataface.modules.ajax_form.AjaxList#
+		 * @description Decorates a row of the table by adding event handlers
+		 * e.g. click.
+		 */
 		function decorateRow(tr){
 			var self = this;
 			$(tr).click(function(){
@@ -172,16 +186,58 @@
 			});
 		}
 		
+		/**
+		 * @type function
+		 * @memberOf xataface.modules.ajax_form.AjaxList#
+		 * @description Gets the record id associated with a row in the table.
+		 * @param {HTMLElement} tr The <tr> (row of table) that we are interested in.
+		 *
+		 */
 		function getRowRecordId(tr){
 			return $(tr).attr('data-xf-record-id');
 		}
 		
+		
+		
+		
+		/**
+		 * @type function
+		 * @memberOf xataface.modules.ajax_form.AjaxList#
+		 * @description Loads a form to edit the given row. This will insert a new
+		 * row with the edit form just after the given tr tag.
+		 *
+		 * @param {HTMLElement} tr The <tr> tag containing the row that we want to edit.
+		 */
 		function editRow(tr){
 			var self = this;
-			var editCell = $('<td colspan="'+this.countColumns()+'"/>')
-				.addClass('xf-ajax-list-edit-cell');
-			var editRow = $('<tr>').append(editCell).insertAfter(tr);
+			var editCell, editRow;
 			
+			
+			if ( !$(tr).data('editCell') ){
+				editCell = $('<td colspan="'+this.countColumns()+'"/>')
+					.addClass('xf-ajax-list-edit-cell');
+				editRow = $('<tr>').append(editCell).insertAfter(tr);
+				$(tr).data('editCell', editCell);
+				$(tr).data('editRow', editRow);
+			} else {
+				// The row is already being edited.
+				
+				return;
+			}
+			
+			var buttonBar = $('<div>').addClass('xf-button-bar');
+			
+			var cancelButton = $('<button>Cancel</button>')
+				.addClass('xf-ajax-list-edit-cell-cancel-button')
+				.click(function(){
+					$(tr).removeData('editCell');
+					$(formWrapper).slideUp(function(){
+						$(editRow).remove();
+					});
+					
+				});
+			buttonBar.append(cancelButton);
+			editCell.append(buttonBar);
 			// TODO: load the portal from the server and add a submit
 			// handler to the contained form.
 			
@@ -206,6 +262,7 @@
 			
 			var formWrapper = $('<div>').hide();
 			editCell.append(waitMessage).append(formWrapper);
+			
 			formWrapper.load(DATAFACE_SITE_HREF, q, function(res){
 				$(waitMessage).remove();
 				$(this).slideDown();
@@ -279,12 +336,17 @@
 		}
 		
 		/**
+		 * @type function
+		 * @memberOf xataface.modules.ajax_form.AjaxList#
+		 *
 		 * @description Retrieves the HTML template that was used to 
 		 * construct this list.  An HTML template is really just a collection
 		 * of HTML <input> elements whose names correspond to fields
 		 * that should be included in the table.
 		 *
 		 * This method generates it based on the columns currently in the table.
+		 *
+		 * @returns {String}
 		 */
 		function getTemplateHtml(){
 			var columns = [];

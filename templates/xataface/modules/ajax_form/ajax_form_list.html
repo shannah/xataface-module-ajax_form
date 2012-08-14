@@ -1,8 +1,47 @@
 {use_macro file="Dataface_Main_Template.html"}
 
 	{fill_slot name="main_section"}
-	
-		{$listContent}
+		<div class="xf-button-bar">
+			<div class="result-list-actions list-actions xf-button-bar-actions">
+				{capture assign="result_list_actions_html"}
+					{actions_menu id="list-actions" id_prefix="list-actions-" category="result_list_actions" maxcount=7}
+				{/capture}
+				{$result_list_actions_html}
+			</div>
+			{capture assign="resultlist_controller_html"}
+				{if !$ENV.prefs.hide_resultlist_controller}
+					{include file="Dataface_ResultListController.html"}
+				{/if}
+			{/capture}
+			{$resultlist_controller_html}
+			<div class="search-info xf-button-bar-info">
+				{assign var=search_parameters value=$G2->getSearchParameters()}
+				{if $search_parameters}
+					<span class="search-results-for">Search Results For: </span>
+					<ul class="search-parameters">
+						{foreach from=$search_parameters item=sval key=skey}
+							<li>
+								<a title="{$skey|escape}=&quot;{$sval|escape}&quot;" href="{$ENV.APPLICATION_OBJECT->url('-action=find')|escape}">
+									<span class="search-key">{$skey|truncate:20|escape}</span> <span class="search-value">{$sval|truncate:20|escape}</span>
+								</a>
+							</li>
+						{/foreach}
+					</ul>
+					<div style="height: 1px; clear:both"></div>
+				{/if}
+			</div>
+		</div>
+		<div class="ajax-list-wrapper">
+			{$listContent}
+		</div>
+		
+		<div class="result-list-footer result-list-bar xf-button-bar">
+			<div class="result-list-actions xf-button-bar-actions">
+				{$result_list_actions_html}
+			</div>
+			{$resultlist_controller_html}
+			<div class="search-info xf-button-bar-info"></div>
+		</div>
 	
 	{/fill_slot}
 

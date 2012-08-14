@@ -1,0 +1,30 @@
+
+table.xf-ajax-list .xf-ajax-list-edit-cell {
+	border: 5px solid rgb(193,205,249);
+	border-radius: 5px;
+	padding: 10px 30px; 10px 30px;
+}
+
+table.xf-ajax-list {
+	border-collapse:collapse;
+	border-radius: 5px;
+	
+}
+table.xf-ajax-list tr.xf-row {
+	border: 1px solid #ccc;
+}
+table.xf-ajax-list tr.xf-row td.xf-cell {
+	border: 1px solid #ccc;
+}
+table.xf-ajax-list th.xf-column {
+	background-color: rgb(193,205,249);
+	
+} 
+
+table.xf-ajax-list tr.xf-row:nth-child(odd) td{
+	background-color: rgb(239, 243, 252);
+}
+
+div.ajax-list-wrapper {
+	margin: 20px -20px 20px -20px;
+}
