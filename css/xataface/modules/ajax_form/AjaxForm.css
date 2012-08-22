@@ -24,3 +24,7 @@
 	background-repeat: no-repeat;
 	padding-left: 20px;
 }
+
+td.xf-cell {
+	vertical-align: top;
+}

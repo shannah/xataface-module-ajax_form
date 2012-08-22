@@ -4,6 +4,7 @@
 //require-css <xataface/modules/ajax_form/AjaxForm.css>
 (function(){
 
+
 	var CODE_VALIDATION_ERROR = 88501;
 	var CODE_RECORD_NOT_FOUND = 88404;
 	var CODE_PERMISSION_DENIED = 88400;

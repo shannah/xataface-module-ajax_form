@@ -660,7 +660,19 @@ class XFAjaxForm {
 					$html[] = '<td class="xf-cell xf-inline-cell xf-label-cell">'
 						.'<div class="xf-field-label">'.htmlspecialchars($groupField['widget']['label']).'</div>'
 						.'</td><td class="xf-cell xf-inline-cell xf-widget-cell">'
-						.'<div class="xf-field-widget"><input type="text" name="'.htmlspecialchars($groupField['name']).'"/></div>'
+						.'<div class="xf-field-widget">';
+					if ( @$groupField['widget']['question'] ){
+						$html[] = '<div class="xf-field-question formHelp">'.
+							htmlspecialchars($groupField['widget']['question']).
+							'</div>';
+					}
+					$html[] = '<input type="text" name="'.htmlspecialchars($groupField['name']).'"/>';
+					if ( @$groupField['widget']['description'] ){
+						$html[] = '<div class="xf-field-description formHelp">'.
+							htmlspecialchars($groupField['widget']['description']).
+							'</div>';
+					}	
+					$html[] = '</div>'
 						.'</td><td class="xf-cell xf-spacer">&nbsp;</td>';
 					$col ++;
 					if ( $col >= $columns ){
@@ -709,6 +721,7 @@ class XFAjaxForm {
 		$html[] = '</div>';
 
 		$html = implode("\r\n", $html);
+		
 		return $html;
 
 		
