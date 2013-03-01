@@ -733,7 +733,7 @@ class XFAjaxForm {
 		import('Dataface/FormTool.php');
 		$formTool = Dataface_FormTool::getInstance();
 		$relationship = $this->record->table()->getRelationship($relationshipName);
-		print_r($relationship->getForeignKeyValues());
+		//print_r($relationship->getForeignKeyValues());
 		$destinationTables = $relationship->getDestinationTables();
 		$domainTableName = $relationship->getDomainTable();
 		$includeDomainTable = true;
@@ -757,8 +757,8 @@ class XFAjaxForm {
 		$groupedFields = $formTool->groupFields($allowedFields);
 		
 		$fkCols = $relatedRecord->getForeignKeyValues();
-		print_r($fkCols);
-		
+		//print_r($fkCols);
+
 		foreach ($groupedFields as $groupName=>$groupFields){
 			
 			$groupDef = $this->record->table()->getFieldGroup($groupName);
@@ -857,7 +857,16 @@ class XFAjaxForm {
 					$html[] = '<td class="xf-cell xf-inline-cell xf-label-cell">'
 						.'<div class="xf-field-label">'.htmlspecialchars($groupField['widget']['label']).'</div>'
 						.'</td><td class="xf-cell xf-inline-cell xf-widget-cell">'
-						.'<div class="xf-field-widget"><input type="text" name="'.htmlspecialchars($relationshipName.'{}.'.$groupField['name']).'"/></div>'
+						.'<div class="xf-field-widget"><input type="text" name="'.htmlspecialchars($relationshipName.'{}.'.$groupField['name']).'"/></div>';
+					
+					if ( @$groupField['widget']['description'] ){
+						$html[] = '<div class="xf-field-description">'.
+							htmlspecialchars($groupField['widget']['description']).
+							'</div>';
+					}
+					
+					
+					$html[] = ''
 						.'</td><td class="xf-cell xf-spacer">&nbsp;</td>';
 					$col ++;
 					if ( $col >= $columns ){
