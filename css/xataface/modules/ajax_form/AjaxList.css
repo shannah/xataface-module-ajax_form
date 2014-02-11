@@ -12,6 +12,7 @@ table.xf-ajax-list {
 }
 table.xf-ajax-list tr.xf-row {
 	border: 1px solid #ccc;
+	cursor: pointer;
 }
 table.xf-ajax-list tr.xf-row td.xf-cell {
 	border: 1px solid #ccc;
@@ -27,4 +28,23 @@ table.xf-ajax-list tr.xf-row:nth-child(odd) td{
 
 div.ajax-list-wrapper {
 	margin: 20px -20px 20px -20px;
+}
+
+
+div.xf-portal > fieldset > legend {
+	cursor: pointer;
+	background-image: url(images/treeExpanded.gif);
+	background-repeat: no-repeat;
+	background-position: 5px 0.8em;
+	padding-left: 20px;
+	width: 80%;
+	border-bottom: 1px solid #ccc;
+}
+
+div.xf-portal.collapsed > fieldset > legend {
+	background-image: url(images/treeCollapsed.gif);
+}
+
+div.xf-portal.collapsed > fieldset {
+	background-color: rgba(0,0,0,0);
 }
