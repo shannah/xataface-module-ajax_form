@@ -364,7 +364,6 @@ class actions_ajax_form_save {
 			
 			foreach ($relatedData as $relationshipName => $relatedRows){
 				foreach ($relatedRows as $index=>$relatedRow){
-					
 					$relatedRecord = null;
 					$newRelated = false;
 					if ( !$new ){
@@ -385,6 +384,7 @@ class actions_ajax_form_save {
 								$this->relationshipErrors[$relationshipName]['__not_found__'] = 'The related record specified could not be found.';
 								throw new Exception("The related record specified was not found.", self::RECORD_NOT_FOUND);
 							}
+							$app->addRecordContext($relatedRecord);
 						} else {
 							throw new Exception("Invalid related record ID could not be parsed: ".$index);
 							
@@ -396,6 +396,7 @@ class actions_ajax_form_save {
 						//error_log("No related record found at index $index for relationship $relationshipName");
 						$newRelated = true;
 						$relatedRecord = new Dataface_RelatedRecord($record, $relationshipName, array());
+						$app->addRecordContext($relatedRecord);
 					}
 					
 					if ( $newRelated and self::arrayIsEmpty($relatedRow) ){
@@ -485,8 +486,9 @@ class actions_ajax_form_save {
 					// the input using the validation rules.
 					foreach ($rowForms as $rowTableName=>$rowForm){
 						
-						
+						//print_r($rowVals[$rowTableName]);exit;
 						$rowForm->_setSubmitValues(array_merge($relatedRecord->strvals(), $rowVals[$rowTableName]), array());
+						$arrForm = (array)$rowForm;
 						
 						if ( !$rowForm->validate() ){
 							// Failed to validate row data
@@ -512,7 +514,7 @@ class actions_ajax_form_save {
 							}
 							$relatedRecord->setValue($key, $tempTableRecord->val($key));
 						}
-						
+
 						//$relatedRecord->setValues($rowForm->_record->vals(false, true, true));
 						
 					}
@@ -523,7 +525,6 @@ class actions_ajax_form_save {
 					if ( $newRelated ){
 						//error_log("Saving new related: ".$relatedRecord->getId());
 						$io = new Dataface_IO($record->table()->tablename);
-						
 						$res = $io->addRelatedRecord($relatedRecord);
 						if ( PEAR::isError($res) ){
 							throw new Exception($res->getMessage(), $res->getCode());

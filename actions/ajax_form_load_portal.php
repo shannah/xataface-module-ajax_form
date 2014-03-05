@@ -45,7 +45,7 @@ class actions_ajax_form_load_portal {
 			throw new Exception("Invalid portal name");
 		}
 		
-		$portalName = $query['--name'];
+		$portalName = @$query['--name'];
 		
 		
 		//$portalRecord = null;
