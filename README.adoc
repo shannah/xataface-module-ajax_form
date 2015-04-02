@@ -38,13 +38,11 @@ modules_ajax_form=modules/ajax_form/ajax_form.php
 
 == Usage
 
-Once the module is installed in your app, you will notice that there is an "Editable" list action available.  You can see this by clicking the "View: List" button in the upper right of the list view (if you are using the G2 theme):
-
-image::images/editable_list_btn.png[]
+Once the module is installed in your app, you will notice that there is an "Editable" list action available.  You can see this by clicking the "View: List" button in the upper right of the list view (if you are using the G2 theme)
 
 If you select this option, you'll see the current result set with a slightly different formatting:
 
-image::images/editable_list_view.png
+image::images/editable_list_btn.png[]
 
 Notice, that "Add Row" button at the bottom of the list.  If you press, this it will expand to show you a form to add a row to the list.  This form is different than the standard Xataface Edit form in that it doesn't direct you to a new page.  It is embedded in the current page using AJAX.
 
