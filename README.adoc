@@ -31,9 +31,10 @@ Or with ZIP:
 
 Adding the `ajax_form` directory to your app's `modules` folder won't actually activate the module in your app.  You additionally need to add the following to the `_modules` section of your `conf.ini` file:
 
----
+
+----
 modules_ajax_form=modules/ajax_form/ajax_form.php
----
+----
 
 == Usage
 
